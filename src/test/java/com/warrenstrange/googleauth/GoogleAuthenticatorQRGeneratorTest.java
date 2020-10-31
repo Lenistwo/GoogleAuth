@@ -43,8 +43,7 @@ public class GoogleAuthenticatorQRGeneratorTest
     private GoogleAuthenticatorKey credentials;
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() {
         GoogleAuthenticatorConfig config =
                 new GoogleAuthenticatorConfig.GoogleAuthenticatorConfigBuilder()
                         .build();
@@ -58,14 +57,12 @@ public class GoogleAuthenticatorQRGeneratorTest
     }
 
     @Test
-    public void testGetOtpAuthURL() throws Exception
-    {
+    public void testGetOtpAuthURL() {
         assertEquals("https://api.qrserver.com/v1/create-qr-code/?data=otpauth%3A%2F%2Ftotp%2FAcme%3Aalice%40example.com%3Fsecret%3DsecretKey%26issuer%3DAcme%26algorithm%3DSHA1%26digits%3D6%26period%3D30&size=200x200&ecc=M&margin=0", GoogleAuthenticatorQRGenerator.getOtpAuthURL("Acme", "alice@example.com", credentials));
     }
 
     @Test
-    public void testGetOtpAuthTotpURL() throws Exception
-    {
+    public void testGetOtpAuthTotpURL() {
         assertEquals(
                 "otpauth://totp/Acme:alice@example.com?secret=secretKey&issuer=Acme&algorithm=SHA1&digits=6&period=30",
                 GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL("Acme", "alice@example.com", credentials));

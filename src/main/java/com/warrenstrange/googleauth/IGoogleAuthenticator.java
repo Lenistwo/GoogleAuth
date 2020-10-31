@@ -34,8 +34,7 @@ package com.warrenstrange.googleauth;
  * Google Authenticator library interface.
  */
 @SuppressWarnings("UnusedDeclaration")
-public interface IGoogleAuthenticator
-{
+public interface IGoogleAuthenticator {
     /**
      * This method generates a new set of credentials including:
      * <ol>

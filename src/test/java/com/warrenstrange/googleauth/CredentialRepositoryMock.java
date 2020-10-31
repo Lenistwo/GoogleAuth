@@ -59,11 +59,9 @@ public class CredentialRepositoryMock implements ICredentialRepository
     {
         final String key = System.getProperty(MOCK_SECRET_KEY_NAME);
 
-        System.out.println(
-                String.format(
-                        "getSecretKey invoked with user name %s returning %s.",
-                        userName,
-                        key));
+        System.out.printf("getSecretKey invoked with user name %s returning %s.%n",
+                userName,
+                key);
 
         return key;
     }

@@ -47,8 +47,7 @@ import java.util.List;
  * @see GoogleAuthenticator
  * @since 1.0.0
  */
-public final class GoogleAuthenticatorKey
-{
+public final class GoogleAuthenticatorKey {
     /**
      * The configuration of this key.
      */
@@ -77,23 +76,16 @@ public final class GoogleAuthenticatorKey
      * @param verificationCode the verification code at time = 0 (the UNIX epoch).
      * @param scratchCodes     the list of scratch codes.
      */
-    private GoogleAuthenticatorKey(GoogleAuthenticatorConfig config,
-                                   String key,
-                                   int verificationCode,
-                                   List<Integer> scratchCodes)
-    {
-        if (key == null)
-        {
+    private GoogleAuthenticatorKey(GoogleAuthenticatorConfig config, String key, int verificationCode, List<Integer> scratchCodes) {
+        if (key == null) {
             throw new IllegalArgumentException("Key cannot be null");
         }
 
-        if (config == null)
-        {
+        if (config == null) {
             throw new IllegalArgumentException("Configuration cannot be null");
         }
 
-        if (scratchCodes == null)
-        {
+        if (scratchCodes == null) {
             throw new IllegalArgumentException("Scratch codes cannot be null");
         }
 
@@ -108,8 +100,7 @@ public final class GoogleAuthenticatorKey
      *
      * @return the list of scratch codes.
      */
-    public List<Integer> getScratchCodes()
-    {
+    public List<Integer> getScratchCodes() {
         return scratchCodes;
     }
 
@@ -118,8 +109,7 @@ public final class GoogleAuthenticatorKey
      *
      * @return the config of this key.
      */
-    public GoogleAuthenticatorConfig getConfig()
-    {
+    public GoogleAuthenticatorConfig getConfig() {
         return config;
     }
 
@@ -128,8 +118,7 @@ public final class GoogleAuthenticatorKey
      *
      * @return the secret key in Base32 encoding.
      */
-    public String getKey()
-    {
+    public String getKey() {
         return key;
     }
 
@@ -138,16 +127,14 @@ public final class GoogleAuthenticatorKey
      *
      * @return the verificationCode at time = 0 (the UNIX epoch).
      */
-    public int getVerificationCode()
-    {
+    public int getVerificationCode() {
         return verificationCode;
     }
 
     /**
      * This class is a builder to create instances of the {@link GoogleAuthenticatorKey} class.
      */
-    public static class Builder
-    {
+    public static class Builder {
         private GoogleAuthenticatorConfig config = new GoogleAuthenticatorConfig();
         private String key;
         private int verificationCode;
@@ -159,8 +146,7 @@ public final class GoogleAuthenticatorKey
          * @param key the secret key in Base32 encoding.
          * @see GoogleAuthenticatorKey#GoogleAuthenticatorKey(GoogleAuthenticatorConfig, String, int, List)
          */
-        public Builder(String key)
-        {
+        public Builder(String key) {
             this.key = key;
         }
 
@@ -170,8 +156,7 @@ public final class GoogleAuthenticatorKey
          * @return an instance of the {@link GoogleAuthenticatorKey} class initialized with the properties set in this builder.
          * @see GoogleAuthenticatorKey#GoogleAuthenticatorKey(GoogleAuthenticatorConfig, String, int, List)
          */
-        public GoogleAuthenticatorKey build()
-        {
+        public GoogleAuthenticatorKey build() {
             return new GoogleAuthenticatorKey(config, key, verificationCode, scratchCodes);
         }
 
@@ -182,8 +167,7 @@ public final class GoogleAuthenticatorKey
          * @return the builder.
          * @see GoogleAuthenticatorKey#GoogleAuthenticatorKey(GoogleAuthenticatorConfig, String, int, List)
          */
-        public Builder setConfig(GoogleAuthenticatorConfig config)
-        {
+        public Builder setConfig(GoogleAuthenticatorConfig config) {
             this.config = config;
             return this;
         }
@@ -195,8 +179,7 @@ public final class GoogleAuthenticatorKey
          * @return the builder.
          * @see GoogleAuthenticatorKey#GoogleAuthenticatorKey(GoogleAuthenticatorConfig, String, int, List)
          */
-        public Builder setKey(String key)
-        {
+        public Builder setKey(String key) {
             this.key = key;
             return this;
         }
@@ -208,8 +191,7 @@ public final class GoogleAuthenticatorKey
          * @return the builder.
          * @see GoogleAuthenticatorKey#GoogleAuthenticatorKey(GoogleAuthenticatorConfig, String, int, List)
          */
-        public Builder setVerificationCode(int verificationCode)
-        {
+        public Builder setVerificationCode(int verificationCode) {
             this.verificationCode = verificationCode;
             return this;
         }
@@ -221,8 +203,7 @@ public final class GoogleAuthenticatorKey
          * @return the builder.
          * @see GoogleAuthenticatorKey#GoogleAuthenticatorKey(GoogleAuthenticatorConfig, String, int, List)
          */
-        public Builder setScratchCodes(List<Integer> scratchCodes)
-        {
+        public Builder setScratchCodes(List<Integer> scratchCodes) {
             this.scratchCodes = scratchCodes;
             return this;
         }

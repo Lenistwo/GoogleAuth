@@ -57,8 +57,7 @@ import static org.junit.Assert.assertTrue;
  * </li>
  * </ol>
  */
-public class GoogleAuthTest
-{
+public class GoogleAuthTest {
 
     // Change this to the saved secret from the running the above test.
     @SuppressWarnings("SpellCheckingInspection")
@@ -66,15 +65,11 @@ public class GoogleAuthTest
     private static final int VALIDATION_CODE = 598775;
 
     @BeforeClass
-    public static void setupMockCredentialRepository()
-    {
-        System.setProperty(
-                CredentialRepositoryMock.MOCK_SECRET_KEY_NAME,
-                SECRET_KEY);
+    public static void setupMockCredentialRepository() {
+        System.setProperty(CredentialRepositoryMock.MOCK_SECRET_KEY_NAME, SECRET_KEY);
     }
 
-    private static byte[] hexStr2Bytes(String hex)
-    {
+    private static byte[] hexStr2Bytes(String hex) {
         // Adding one byte to get the right conversion
         // Values starting with "0" can be converted
         byte[] bArray = new BigInteger("10" + hex, 16).toByteArray();
@@ -87,34 +82,30 @@ public class GoogleAuthTest
     }
 
     @Test
-    public void rfc6238TestVectors()
-    {
+    public void rfc6238TestVectors() {
         // See RFC 6238, p. 14
         final String rfc6238TestKey = "3132333435363738393031323334353637383930";
         final byte[] key = hexStr2Bytes(rfc6238TestKey);
-        final long testTime[] = {59L, 1111111109L, 1111111111L, 1234567890L, 2000000000L, 20000000000L};
-        final long testResults[] = {94287082, 7081804, 14050471, 89005924, 69279037, 65353130};
+        final long[] testTime = {59L, 1111111109L, 1111111111L, 1234567890L, 2000000000L, 20000000000L};
+        final long[] testResults = {94287082, 7081804, 14050471, 89005924, 69279037, 65353130};
         final long timeStepSizeInSeconds = 30;
 
         GoogleAuthenticatorConfigBuilder cb = new GoogleAuthenticatorConfigBuilder();
         cb.setCodeDigits(8).setTimeStepSizeInMillis(TimeUnit.SECONDS.toMillis(timeStepSizeInSeconds));
         GoogleAuthenticator ga = new GoogleAuthenticator(cb.build());
 
-        for (int i = 0; i < testTime.length; ++i)
-        {
+        for (int i = 0; i < testTime.length; ++i) {
             assertEquals(ga.calculateCode(key, testTime[i] / timeStepSizeInSeconds), testResults[i]);
         }
     }
 
     @Test
-    public void rfc6238TestVectorsSHA256()
-    {
+    public void rfc6238TestVectorsSHA256() {
         // See RFC 6238, p. 14
-        final String rfc6238TestKey = "3132333435363738393031323334353637383930" +
-                "313233343536373839303132";
+        final String rfc6238TestKey = "3132333435363738393031323334353637383930" + "313233343536373839303132";
         final byte[] key = hexStr2Bytes(rfc6238TestKey);
-        final long testTime[] = {59L, 1111111109L, 1111111111L, 1234567890L, 2000000000L, 20000000000L};
-        final long testResults[] = {46119246, 68084774, 67062674, 91819424, 90698825, 77737706};
+        final long[] testTime = {59L, 1111111109L, 1111111111L, 1234567890L, 2000000000L, 20000000000L};
+        final long[] testResults = {46119246, 68084774, 67062674, 91819424, 90698825, 77737706};
         final long timeStepSizeInSeconds = 30;
 
         GoogleAuthenticatorConfigBuilder cb = new GoogleAuthenticatorConfigBuilder();
@@ -122,23 +113,18 @@ public class GoogleAuthTest
         cb.setHmacHashFunction(HmacHashFunction.HmacSHA256);
         GoogleAuthenticator ga = new GoogleAuthenticator(cb.build());
 
-        for (int i = 0; i < testTime.length; ++i)
-        {
+        for (int i = 0; i < testTime.length; ++i) {
             assertEquals(ga.calculateCode(key, testTime[i] / timeStepSizeInSeconds), testResults[i]);
         }
     }
 
     @Test
-    public void rfc6238TestVectorsSHA512()
-    {
+    public void rfc6238TestVectorsSHA512() {
         // See RFC 6238, p. 14
-        final String rfc6238TestKey = "3132333435363738393031323334353637383930" +
-                "3132333435363738393031323334353637383930" +
-                "3132333435363738393031323334353637383930" +
-                "31323334";
+        final String rfc6238TestKey = "3132333435363738393031323334353637383930" + "3132333435363738393031323334353637383930" + "3132333435363738393031323334353637383930" + "31323334";
         final byte[] key = hexStr2Bytes(rfc6238TestKey);
-        final long testTime[] = {59L, 1111111109L, 1111111111L, 1234567890L, 2000000000L, 20000000000L};
-        final long testResults[] = {90693936, 25091201, 99943326, 93441116, 38618901, 47863826};
+        final long[] testTime = {59L, 1111111109L, 1111111111L, 1234567890L, 2000000000L, 20000000000L};
+        final long[] testResults = {90693936, 25091201, 99943326, 93441116, 38618901, 47863826};
         final long timeStepSizeInSeconds = 30;
 
         GoogleAuthenticatorConfigBuilder cb = new GoogleAuthenticatorConfigBuilder();
@@ -146,23 +132,17 @@ public class GoogleAuthTest
         cb.setHmacHashFunction(HmacHashFunction.HmacSHA512);
         GoogleAuthenticator ga = new GoogleAuthenticator(cb.build());
 
-        for (int i = 0; i < testTime.length; ++i)
-        {
+        for (int i = 0; i < testTime.length; ++i) {
             assertEquals(ga.calculateCode(key, testTime[i] / timeStepSizeInSeconds), testResults[i]);
         }
     }
 
     @Test
-    public void createCredentials()
-    {
-        GoogleAuthenticatorConfigBuilder gacb =
-                new GoogleAuthenticatorConfigBuilder()
-                        .setKeyRepresentation(KeyRepresentation.BASE64)
-                        .setNumberOfScratchCodes(10);
+    public void createCredentials() {
+        GoogleAuthenticatorConfigBuilder gacb = new GoogleAuthenticatorConfigBuilder().setKeyRepresentation(KeyRepresentation.BASE64).setNumberOfScratchCodes(10);
         GoogleAuthenticator googleAuthenticator = new GoogleAuthenticator(gacb.build());
 
-        final GoogleAuthenticatorKey key =
-                googleAuthenticator.createCredentials();
+        final GoogleAuthenticatorKey key = googleAuthenticator.createCredentials();
         final String secret = key.getKey();
         final List<Integer> scratchCodes = key.getScratchCodes();
 
@@ -171,20 +151,16 @@ public class GoogleAuthTest
         System.out.println("Please register (otpauth uri): " + otpAuthURL);
         System.out.println("Base64-encoded secret key is " + secret);
 
-        for (Integer i : scratchCodes)
-        {
-            if (!googleAuthenticator.validateScratchCode(i))
-            {
-                throw new IllegalArgumentException("An invalid code has been " +
-                        "generated: this is an application bug.");
+        for (Integer i : scratchCodes) {
+            if (!googleAuthenticator.validateScratchCode(i)) {
+                throw new IllegalArgumentException("An invalid code has been " + "generated: this is an application bug.");
             }
             System.out.println("Scratch code: " + i);
         }
     }
 
     @Test
-    public void createAndAuthenticate()
-    {
+    public void createAndAuthenticate() {
         final GoogleAuthenticator ga = new GoogleAuthenticator();
         final GoogleAuthenticatorKey key = ga.createCredentials();
 
@@ -200,12 +176,10 @@ public class GoogleAuthTest
     }
 
     @Test
-    public void createCredentialsForUser()
-    {
+    public void createCredentialsForUser() {
         GoogleAuthenticator googleAuthenticator = new GoogleAuthenticator();
 
-        final GoogleAuthenticatorKey key =
-                googleAuthenticator.createCredentials("testName");
+        final GoogleAuthenticatorKey key = googleAuthenticator.createCredentials("testName");
         final String secret = key.getKey();
         final List<Integer> scratchCodes = key.getScratchCodes();
 
@@ -214,24 +188,17 @@ public class GoogleAuthTest
         System.out.println("Please register (otpauth uri): " + otpAuthURL);
         System.out.println("Secret key is " + secret);
 
-        for (Integer i : scratchCodes)
-        {
-            if (!googleAuthenticator.validateScratchCode(i))
-            {
-                throw new IllegalArgumentException("An invalid code has been " +
-                        "generated: this is an application bug.");
+        for (Integer i : scratchCodes) {
+            if (!googleAuthenticator.validateScratchCode(i)) {
+                throw new IllegalArgumentException("An invalid code has been " + "generated: this is an application bug.");
             }
             System.out.println("Scratch code: " + i);
         }
     }
 
     @Test
-    public void authorise()
-    {
-        GoogleAuthenticatorConfigBuilder gacb =
-                new GoogleAuthenticatorConfigBuilder()
-                        .setTimeStepSizeInMillis(TimeUnit.SECONDS.toMillis(30))
-                        .setWindowSize(5);
+    public void authorise() {
+        GoogleAuthenticatorConfigBuilder gacb = new GoogleAuthenticatorConfigBuilder().setTimeStepSizeInMillis(TimeUnit.SECONDS.toMillis(30)).setWindowSize(5);
         GoogleAuthenticator ga = new GoogleAuthenticator(gacb.build());
 
         boolean isCodeValid = ga.authorize(SECRET_KEY, VALIDATION_CODE);
@@ -240,13 +207,8 @@ public class GoogleAuthTest
     }
 
     @Test
-    public void authoriseUser()
-    {
-        GoogleAuthenticatorConfigBuilder gacb =
-                new GoogleAuthenticatorConfigBuilder()
-                        .setTimeStepSizeInMillis(TimeUnit.SECONDS.toMillis(30))
-                        .setWindowSize(5)
-                        .setCodeDigits(6);
+    public void authoriseUser() {
+        GoogleAuthenticatorConfigBuilder gacb = new GoogleAuthenticatorConfigBuilder().setTimeStepSizeInMillis(TimeUnit.SECONDS.toMillis(30)).setWindowSize(5).setCodeDigits(6);
         GoogleAuthenticator ga = new GoogleAuthenticator(gacb.build());
 
         boolean isCodeValid = ga.authorizeUser("testName", VALIDATION_CODE);

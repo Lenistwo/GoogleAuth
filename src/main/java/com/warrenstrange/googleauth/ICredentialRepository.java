@@ -35,8 +35,7 @@ import java.util.List;
 /**
  * @author Enrico M. Crisosotomo
  */
-public interface ICredentialRepository
-{
+public interface ICredentialRepository {
     /**
      * This method retrieves the Base32-encoded private key of the given user.
      *
@@ -53,8 +52,5 @@ public interface ICredentialRepository
      * @param validationCode the validation code.
      * @param scratchCodes   the list of scratch codes.
      */
-    void saveUserCredentials(String userName,
-                             String secretKey,
-                             int validationCode,
-                             List<Integer> scratchCodes);
+    void saveUserCredentials(String userName, String secretKey, int validationCode, List<Integer> scratchCodes);
 }

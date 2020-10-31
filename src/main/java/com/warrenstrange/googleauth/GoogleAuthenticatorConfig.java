@@ -32,8 +32,7 @@ package com.warrenstrange.googleauth;
 
 import java.util.concurrent.TimeUnit;
 
-public class GoogleAuthenticatorConfig
-{
+public class GoogleAuthenticatorConfig {
     private long timeStepSizeInMillis = TimeUnit.SECONDS.toMillis(30);
     private int windowSize = 3;
     private int codeDigits = 6;
@@ -48,8 +47,7 @@ public class GoogleAuthenticatorConfig
      *
      * @return the key module.
      */
-    public int getKeyModulus()
-    {
+    public int getKeyModulus() {
         return keyModulus;
     }
 
@@ -58,8 +56,7 @@ public class GoogleAuthenticatorConfig
      *
      * @return the key representation.
      */
-    public KeyRepresentation getKeyRepresentation()
-    {
+    public KeyRepresentation getKeyRepresentation() {
         return keyRepresentation;
     }
 
@@ -69,8 +66,7 @@ public class GoogleAuthenticatorConfig
      * @return the number of digits in the generated code.
      */
     @SuppressWarnings("UnusedDeclaration")
-    public int getCodeDigits()
-    {
+    public int getCodeDigits() {
         return codeDigits;
     }
 
@@ -79,8 +75,7 @@ public class GoogleAuthenticatorConfig
      *
      * @return the number of scratch codes to generate.
      */
-    public int getNumberOfScratchCodes()
-    {
+    public int getNumberOfScratchCodes() {
         return numberOfScratchCodes;
     }
 
@@ -90,8 +85,7 @@ public class GoogleAuthenticatorConfig
      *
      * @return the time step size in milliseconds.
      */
-    public long getTimeStepSizeInMillis()
-    {
+    public long getTimeStepSizeInMillis() {
         return timeStepSizeInMillis;
     }
 
@@ -109,8 +103,7 @@ public class GoogleAuthenticatorConfig
      * @return the window size.
      * @see #timeStepSizeInMillis
      */
-    public int getWindowSize()
-    {
+    public int getWindowSize() {
         return windowSize;
     }
 
@@ -133,34 +126,27 @@ public class GoogleAuthenticatorConfig
      *
      * @return the HMAC hash function.
      */
-    public HmacHashFunction getHmacHashFunction()
-    {
+    public HmacHashFunction getHmacHashFunction() {
         return hmacHashFunction;
     }
 
-    public static class GoogleAuthenticatorConfigBuilder
-    {
-        private GoogleAuthenticatorConfig config = new GoogleAuthenticatorConfig();
+    public static class GoogleAuthenticatorConfigBuilder {
+        private final GoogleAuthenticatorConfig config = new GoogleAuthenticatorConfig();
 
-        public GoogleAuthenticatorConfig build()
-        {
+        public GoogleAuthenticatorConfig build() {
             return config;
         }
 
-        public GoogleAuthenticatorConfigBuilder setCodeDigits(int codeDigits)
-        {
-            if (codeDigits <= 0)
-            {
+        public GoogleAuthenticatorConfigBuilder setCodeDigits(int codeDigits) {
+            if (codeDigits <= 0) {
                 throw new IllegalArgumentException("Code digits must be positive.");
             }
 
-            if (codeDigits < 6)
-            {
+            if (codeDigits < 6) {
                 throw new IllegalArgumentException("The minimum number of digits is 6.");
             }
 
-            if (codeDigits > 8)
-            {
+            if (codeDigits > 8) {
                 throw new IllegalArgumentException("The maximum number of digits is 8.");
             }
 
@@ -169,15 +155,12 @@ public class GoogleAuthenticatorConfig
             return this;
         }
 
-        public GoogleAuthenticatorConfigBuilder setNumberOfScratchCodes(int numberOfScratchCodes)
-        {
-            if (numberOfScratchCodes < 0)
-            {
+        public GoogleAuthenticatorConfigBuilder setNumberOfScratchCodes(int numberOfScratchCodes) {
+            if (numberOfScratchCodes < 0) {
                 throw new IllegalArgumentException("The number of scratch codes must not be negative");
             }
 
-            if (numberOfScratchCodes > 1_000)
-            {
+            if (numberOfScratchCodes > 1_000) {
                 throw new IllegalArgumentException("The maximum number of scratch codes is 1000");
             }
 
@@ -185,10 +168,8 @@ public class GoogleAuthenticatorConfig
             return this;
         }
 
-        public GoogleAuthenticatorConfigBuilder setTimeStepSizeInMillis(long timeStepSizeInMillis)
-        {
-            if (timeStepSizeInMillis <= 0)
-            {
+        public GoogleAuthenticatorConfigBuilder setTimeStepSizeInMillis(long timeStepSizeInMillis) {
+            if (timeStepSizeInMillis <= 0) {
                 throw new IllegalArgumentException("Time step size must be positive.");
             }
 
@@ -196,10 +177,8 @@ public class GoogleAuthenticatorConfig
             return this;
         }
 
-        public GoogleAuthenticatorConfigBuilder setWindowSize(int windowSize)
-        {
-            if (windowSize <= 0)
-            {
+        public GoogleAuthenticatorConfigBuilder setWindowSize(int windowSize) {
+            if (windowSize <= 0) {
                 throw new IllegalArgumentException("Window number must be positive.");
             }
 
@@ -207,15 +186,12 @@ public class GoogleAuthenticatorConfig
             return this;
         }
 
-        public GoogleAuthenticatorConfigBuilder setSecretBits(int secretBits)
-        {
-            if (secretBits < 128)
-            {
+        public GoogleAuthenticatorConfigBuilder setSecretBits(int secretBits) {
+            if (secretBits < 128) {
                 throw new IllegalArgumentException("Secret bits must be greater than or equal to 128.");
             }
 
-            if (secretBits % 8 != 0)
-            {
+            if (secretBits % 8 != 0) {
                 throw new IllegalArgumentException("Secret bits must be a multiple of 8.");
             }
 
@@ -223,10 +199,8 @@ public class GoogleAuthenticatorConfig
             return this;
         }
 
-        public GoogleAuthenticatorConfigBuilder setKeyRepresentation(KeyRepresentation keyRepresentation)
-        {
-            if (keyRepresentation == null)
-            {
+        public GoogleAuthenticatorConfigBuilder setKeyRepresentation(KeyRepresentation keyRepresentation) {
+            if (keyRepresentation == null) {
                 throw new IllegalArgumentException("Key representation cannot be null.");
             }
 
@@ -234,10 +208,8 @@ public class GoogleAuthenticatorConfig
             return this;
         }
 
-        public GoogleAuthenticatorConfigBuilder setHmacHashFunction(HmacHashFunction hmacHashFunction)
-        {
-            if (hmacHashFunction == null)
-            {
+        public GoogleAuthenticatorConfigBuilder setHmacHashFunction(HmacHashFunction hmacHashFunction) {
+            if (hmacHashFunction == null) {
                 throw new IllegalArgumentException("HMAC Hash Function cannot be null.");
             }
 
